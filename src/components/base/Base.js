@@ -1305,6 +1305,9 @@ export default class BaseComponent extends Component {
     this.description = this.ce('div', {
       class: 'help-block'
     });
+
+    this.setInputStyles(this.description);
+
     this.description.innerHTML = this.t(this.component.description);
     container.appendChild(this.description);
   }
@@ -1319,6 +1322,9 @@ export default class BaseComponent extends Component {
     this.errorElement = this.ce('div', {
       class: 'formio-errors invalid-feedback'
     });
+
+    this.setInputStyles(this.errorElement);
+
     this.errorContainer.appendChild(this.errorElement);
   }
 
