@@ -465,14 +465,14 @@ export default class NestedComponent extends BaseComponent {
     }
 
     if (component.type === 'components') {
-      return component.setValue(value, flags) || changed;
+      return component.setValue(value, flags, value) || changed;
     }
     else if (value && component.hasValue(value)) {
-      return component.setValue(_.get(value, component.key), flags) || changed;
+      return component.setValue(_.get(value, component.key), flags, value) || changed;
     }
     else {
       flags.noValidate = true;
-      return component.setValue(component.defaultValue, flags) || changed;
+      return component.setValue(component.defaultValue, flags, value) || changed;
     }
   }
 
