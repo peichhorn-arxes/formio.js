@@ -657,7 +657,7 @@ export default class BaseComponent extends Component {
    */
   get className() {
     let className = this.hasInput ? 'form-group has-feedback ' : '';
-    className += `formio-component formio-component-${this.component.type} `;
+    className += `formio-component formio-component-${this.component.type} clearfix`;
     if (this.key) {
       className += `formio-component-${this.key} `;
     }
