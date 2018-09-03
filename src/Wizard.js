@@ -305,7 +305,7 @@ export default class Wizard extends Webform {
       }
 
       // Set clickable based on breadcrumb settings
-      const clickable = this.page !== i && this.options.breadcrumbSettings.clickable;
+      const clickable = (i <= this.page + 1) && this.options.breadcrumbSettings.clickable;
       let pageClass = 'page-item ';
       pageClass += (i === this.page) ? 'active' : (clickable ? '' : 'disabled');
 
@@ -319,7 +319,9 @@ export default class Wizard extends Webform {
       if (clickable) {
         this.addEventListener(pageButton, 'click', (event) => {
           event.preventDefault();
-          this.setPage(i);
+          if (i <= this.page || this.checkValidity(this.submission.data, true)) {
+            this.setPage(i);
+          }
         });
       }
 
