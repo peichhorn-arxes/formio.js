@@ -40,7 +40,7 @@ export default class SelectBoxesComponent extends RadioComponent {
   }
 
   get emptyValue() {
-    return this.component.values.reduce((prev, value) => {
+    return _(this.component.values || []).reduce((prev, value) => {
       prev[value.value] = false;
       return prev;
     }, {});
