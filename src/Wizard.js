@@ -433,7 +433,7 @@ export default class Wizard extends Webform {
     });
 
     if (rebuild) {
-      this.setForm(this.wizard);
+      this.buildPages(this.wizard);
     }
 
     // Update Wizard Nav
