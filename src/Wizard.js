@@ -454,13 +454,13 @@ export default class Wizard extends Webform {
       return;
     }
     this.wizardNav = this.ce('ul', {
-      class: 'list-inline'
+      class: 'list-inline pull-right'
     });
     this.element.appendChild(this.wizardNav);
     [
       { name: 'cancel',    method: 'cancel',   class: 'btn btn-default btn-secondary' },
-      { name: 'previous',  method: 'prevPage', class: 'btn btn-primary' },
-      { name: 'next',      method: 'nextPage', class: 'btn btn-primary' },
+      { name: 'previous',  method: 'prevPage', class: 'btn btn-default btn-secondary' },
+      { name: 'next',      method: 'nextPage', class: 'btn btn-default btn-secondary' },
       { name: 'submit',    method: 'submit',   class: 'btn btn-primary' }
     ].forEach((button) => {
       if (!this.hasButton(button.name, nextPage)) {
