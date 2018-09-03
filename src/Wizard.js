@@ -350,7 +350,7 @@ export default class Wizard extends Webform {
         this.options.breadcrumbSettings.clickable
       ]);
 
-      const clickable = this.page !== i && clickableFlag;
+      const clickable = (i <= this.page + 1) && clickableFlag;
       let pageClass = 'page-item ';
       pageClass += (i === this.page) ? 'active' : (clickable ? '' : 'disabled');
 
@@ -365,7 +365,9 @@ export default class Wizard extends Webform {
         this.addEventListener(pageButton, 'click', (event) => {
           this.emit('wizardNavigationClicked', this.pages[i]);
           event.preventDefault();
-          this.setPage(i);
+          if (i <= this.page || this.checkValidity(this.submission.data, true)) {
+            this.setPage(i);
+          }
         });
       }
 
