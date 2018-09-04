@@ -31,7 +31,15 @@ export default [
     tooltip: 'A raw JSON array to use as a data source.',
     conditional: {
       json: { '===': [{ var: 'data.dataSrc' }, 'json'] }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: { '!==': [{ var: 'data.dataSrc' }, 'json'] }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'textfield',
@@ -43,7 +51,15 @@ export default [
     tooltip: 'A URL that returns a JSON array to use as the data source.',
     conditional: {
       json: { '===': [{ var: 'data.dataSrc' }, 'url'] }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: { '!==': [{ var: 'data.dataSrc' }, 'url'] }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'checkbox',
@@ -54,7 +70,15 @@ export default [
     weight: 11,
     conditional: {
       json: { '===': [{ var: 'data.dataSrc' }, 'url'] }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: { '!==': [{ var: 'data.dataSrc' }, 'url'] }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'datagrid',
@@ -79,7 +103,15 @@ export default [
     ],
     conditional: {
       json: { '===': [{ var: 'data.dataSrc' }, 'url'] }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: { '!==': [{ var: 'data.dataSrc' }, 'url'] }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'datagrid',
@@ -105,7 +137,15 @@ export default [
     ],
     conditional: {
       json: { '===': [{ var: 'data.dataSrc' }, 'values'] }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: { '!==': [{ var: 'data.dataSrc' }, 'values'] }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'select',
@@ -122,42 +162,45 @@ export default [
     tooltip: 'The resource to be used with this field.',
     conditional: {
       json: { '===': [{ var: 'data.dataSrc' }, 'resource'] }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: { '!==': [{ var: 'data.dataSrc' }, 'resource'] }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
-    type: 'select',
+    type: 'textfield',
     input: true,
     label: 'Value Property',
     key: 'valueProperty',
-    tooltip: 'The field to use as the value.',
     weight: 11,
-    refreshOn: 'resource',
-    template: '<span>{{ item.label }}</span>',
-    valueProperty: 'key',
-    dataSrc: 'url',
-    onSetItems(component, form) {
-      const newItems = [];
-
-      eachComponent(form.components, (component, path) => {
-        newItems.push({
-          label: component.label || component.key,
-          key: path
-        });
-      });
-
-      return newItems;
-    },
-    data: {
-      url: '/form/{{ data.resource }}'
-    },
+    description: "The selected item's property to save.",
+    tooltip: 'The property of each item in the data source to use as the select value. If not specified, the item itself will be used.',
     conditional: {
       json: {
         and: [
-          { '===': [{ var: 'data.dataSrc' }, 'resource'] },
-          { var: 'data.resource' }
+          { '!==': [{ var: 'data.dataSrc' }, 'values'] },
+          { '!==': [{ var: 'data.dataSrc' }, 'custom'] }
         ]
       }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: {
+          or: [
+            { '===': [{ var: 'data.dataSrc' }, 'values'] },
+            { '===': [{ var: 'data.dataSrc' }, 'custom'] }
+          ]
+        }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'textfield',
@@ -169,25 +212,15 @@ export default [
     tooltip: 'The property within the source data, where iterable items reside. For example: results.items or results[0].items',
     conditional: {
       json: { '===': [{ var: 'data.dataSrc' }, 'url'] }
-    }
-  },
-  {
-    type: 'textfield',
-    input: true,
-    label: 'Value Property',
-    key: 'valueProperty',
-    weight: 13,
-    description: "The selected item's property to save.",
-    tooltip: 'The property of each item in the data source to use as the select value. If not specified, the item itself will be used.',
-    conditional: {
-      json: {
-        and: [
-          { '!==': [{ var: 'data.dataSrc' }, 'values'] },
-          { '!==': [{ var: 'data.dataSrc' }, 'resource'] },
-          { '!==': [{ var: 'data.dataSrc' }, 'custom'] }
-        ]
-      }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: { '!==': [{ var: 'data.dataSrc' }, 'url'] }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'textfield',
@@ -204,7 +237,15 @@ export default [
           { '===': [{ var: 'data.valueProperty' }, ''] }
         ]
       }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: { '!==': [{ var: 'data.dataSrc' }, 'resource'] }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'checkbox',
@@ -215,7 +256,15 @@ export default [
     weight: 15,
     conditional: {
       json: { '===': [{ var: 'data.dataSrc' }, 'url'] }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: { '!==': [{ var: 'data.dataSrc' }, 'url'] }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'textfield',
@@ -232,7 +281,20 @@ export default [
           { '===': [{ var: 'data.dataSrc' }, 'resource'] }
         ]
       }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: {
+          and: [
+            { '!==': [{ var: 'data.dataSrc' }, 'url'] },
+            { '!==': [{ var: 'data.dataSrc' }, 'resource'] }
+          ]
+        }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'number',
@@ -249,7 +311,15 @@ export default [
           { '!=': [{ var: 'data.searchField' }, ''] }
         ]
       }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: { '!==': [{ var: 'data.dataSrc' }, 'url'] }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'textfield',
@@ -266,7 +336,20 @@ export default [
           { '===': [{ var: 'data.dataSrc' }, 'resource'] }
         ]
       }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: {
+          and: [
+            { '!==': [{ var: 'data.dataSrc' }, 'url'] },
+            { '!==': [{ var: 'data.dataSrc' }, 'resource'] }
+          ]
+        }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'number',
@@ -284,7 +367,21 @@ export default [
           { '===': [{ var: 'data.dataSrc' }, 'json'] }
         ]
       }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: {
+          and: [
+            { '!==': [{ var: 'data.dataSrc' }, 'url'] },
+            { '!==': [{ var: 'data.dataSrc' }, 'resource'] },
+            { '!==': [{ var: 'data.dataSrc' }, 'json'] }
+          ]
+        }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'textarea',
@@ -298,7 +395,15 @@ export default [
     tooltip: 'Write custom code to return the value options. The form data object is available.',
     conditional: {
       json: { '===': [{ var: 'data.dataSrc' }, 'custom'] }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: { '!==': [{ var: 'data.dataSrc' }, 'custom'] }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'textarea',
@@ -329,7 +434,15 @@ export default [
     tooltip: 'Using this option will save this field as a reference and link its value to the value of the origin record.',
     conditional: {
       json: { '===': [{ var: 'data.dataSrc' }, 'resource'] }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: { '!==': [{ var: 'data.dataSrc' }, 'resource'] }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   },
   {
     type: 'checkbox',
@@ -340,6 +453,14 @@ export default [
     tooltip: 'Check this if you would like to use Formio Authentication with the request.',
     conditional: {
       json: { '===': [{ var: 'data.dataSrc' }, 'url'] }
-    }
+    },
+    clearOnHide: false,
+    logic: [{
+      trigger: {
+        type: 'json',
+        json: { '!==': [{ var: 'data.dataSrc' }, 'url'] }
+      },
+      actions: [{ type: 'clear' }]
+    }]
   }
 ];
