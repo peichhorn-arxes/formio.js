@@ -287,7 +287,7 @@ export default class CalendarWidget extends InputWidget {
 
   validationValue(value) {
     if (typeof value === 'string') {
-      return new Date(value);
+      return value ? new Date(value) : value;
     }
     return value.map(val => new Date(val));
   }
