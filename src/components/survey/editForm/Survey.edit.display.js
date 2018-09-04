@@ -19,7 +19,7 @@ export default [
         key: 'value',
         input: true,
         type: 'textfield',
-        calculateValue: { _camelCase: [{ var: 'row.label' }] }
+        calculateValue: { or: [{ var: 'row.value' }, { _camelCase: [{ var: 'row.label' }] }] }
       }
     ]
   },
@@ -43,7 +43,7 @@ export default [
         key: 'value',
         input: true,
         type: 'textfield',
-        calculateValue: { _camelCase: [{ var: 'row.label' }] }
+        calculateValue: { or: [{ var: 'row.value' }, { _camelCase: [{ var: 'row.label' }] }] }
       }
     ]
   }
