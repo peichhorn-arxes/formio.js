@@ -1500,6 +1500,9 @@ export default class BaseComponent extends Component {
   applyActions(actions, result, data, newComponent) {
     return actions.reduce((changed, action) => {
       switch (action.type) {
+        case 'clear':
+          this.resetValue();
+          break;
         case 'property':
           FormioUtils.setActionProperty(newComponent, action, this.data, data, newComponent, result, this);
           break;
