@@ -17,12 +17,7 @@ export default class InputWidget extends Component {
   }
 
   set disabled(disabled) {
-    if (disabled) {
-      this._input.setAttribute('disabled', 'disabled');
-    }
-    else {
-      this._input.removeAttribute('disabled');
-    }
+    this.disableInput(this._input, disabled);
   }
 
   get input() {
@@ -55,5 +50,14 @@ export default class InputWidget extends Component {
 
   setValue(value) {
     this._input.value = value;
+  }
+
+  disableInput(input, disabled) {
+    if (disabled) {
+      this._input.setAttribute('disabled', 'disabled');
+    }
+    else {
+      this._input.removeAttribute('disabled');
+    }
   }
 }
