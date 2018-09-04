@@ -137,6 +137,7 @@ export default class CalendarWidget extends InputWidget {
   set disabled(disabled) {
     super.disabled = disabled;
     if (this.calendar) {
+      this.disableInput(this.calendar._input, disabled);
       this.calendar.close();
       this.calendar.redraw();
     }
