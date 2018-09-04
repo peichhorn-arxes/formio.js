@@ -1191,6 +1191,9 @@ export default class BaseComponent extends Component {
     this.description = this.ce('div', {
       class: 'help-block'
     });
+
+    this.setInputStyles(this.description);
+
     this.description.innerHTML = this.t(this.component.description);
     container.appendChild(this.description);
   }
@@ -1206,19 +1209,7 @@ export default class BaseComponent extends Component {
       class: 'formio-errors invalid-feedback'
     });
 
-    if (!this.labelIsHidden()) {
-      if (this.labelOnTheLeftOrRight(this.component.labelPosition)) {
-        const totalLabelWidth = this.getLabelWidth() + this.getLabelMargin();
-        this.errorElement.style.width = `${100 - totalLabelWidth}%`;
-
-        if (this.labelOnTheLeft(this.component.labelPosition)) {
-          this.errorElement.style.marginLeft = `${totalLabelWidth}%`;
-        }
-        else {
-          this.errorElement.style.marginRight = `${totalLabelWidth}%`;
-        }
-      }
-    }
+    this.setInputStyles(this.errorElement);
 
     this.errorContainer.appendChild(this.errorElement);
   }
