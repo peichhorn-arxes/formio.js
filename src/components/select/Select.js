@@ -778,7 +778,8 @@ export default class SelectComponent extends BaseComponent {
       const isSelectOptions = items === this.selectOptions;
       if (items && items.length) {
         _.each(items, (choice) => {
-          if (choice._id && value._id && (choice._id === value._id)) {
+          if ((choice._id && value._id && choice._id === value._id)
+              || (choice.value && value && choice.value === value)) {
             found = true;
             return false;
           }
