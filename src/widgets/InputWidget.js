@@ -54,10 +54,10 @@ export default class InputWidget extends Component {
 
   disableInput(input, disabled) {
     if (disabled) {
-      this._input.setAttribute('disabled', 'disabled');
+      input.setAttribute('disabled', 'disabled');
     }
     else {
-      this._input.removeAttribute('disabled');
+      input.removeAttribute('disabled');
     }
   }
 }
