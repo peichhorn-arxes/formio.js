@@ -324,9 +324,6 @@ export default class Component {
         // Internal bug of vanilla-text-mask on iOS (`selectionEnd`);
         console.warn(e);
       }
-      if (mask.numeric) {
-        input.setAttribute('pattern', '\\d*');
-      }
       if (placeholder) {
         input.setAttribute('placeholder', this.maskPlaceholder(mask));
       }

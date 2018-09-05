@@ -729,22 +729,18 @@ export function getInputMask(mask) {
     return mask;
   }
   const maskArray = [];
-  maskArray.numeric = true;
   for (let i = 0; i < mask.length; i++) {
     switch (mask[i]) {
       case '9':
         maskArray.push(/\d/);
         break;
       case 'A':
-        maskArray.numeric = false;
         maskArray.push(/[a-zA-Z]/);
         break;
       case 'a':
-        maskArray.numeric = false;
         maskArray.push(/[a-z]/);
         break;
       case '*':
-        maskArray.numeric = false;
         maskArray.push(/[a-zA-Z0-9]/);
         break;
       default:
