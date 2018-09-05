@@ -300,9 +300,6 @@ export default class Component {
         inputElement: input,
         mask
       });
-      if (mask.numeric) {
-        input.setAttribute('pattern', '\\d*');
-      }
       if (placeholder) {
         input.setAttribute('placeholder', this.maskPlaceholder(mask));
       }
