@@ -829,7 +829,12 @@ export default class BaseComponent extends Component {
     this.checkConditions(this.root ? this.root.data : this.data);
     this.restoreValue();
     if (this.root) {
-      this.root.onChange(null, this);
+      this.root.triggerChange({}, {
+        instance: this,
+        component: this.component,
+        value: this.dataValue,
+        flags: {}
+      });
     }
   }
 
@@ -842,7 +847,12 @@ export default class BaseComponent extends Component {
     this.buildRows();
     this.restoreValue();
     if (this.root) {
-      this.root.onChange(null, this);
+      this.root.triggerChange({}, {
+        instance: this,
+        component: this.component,
+        value: this.dataValue,
+        flags: {}
+      });
     }
   }
 
