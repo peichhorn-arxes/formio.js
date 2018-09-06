@@ -829,7 +829,7 @@ export default class BaseComponent extends Component {
     this.checkConditions(this.root ? this.root.data : this.data);
     this.restoreValue();
     if (this.root) {
-      this.root.onChange();
+      this.root.onChange(null, this);
     }
   }
 
@@ -842,7 +842,7 @@ export default class BaseComponent extends Component {
     this.buildRows();
     this.restoreValue();
     if (this.root) {
-      this.root.onChange();
+      this.root.onChange(null, this);
     }
   }
 
