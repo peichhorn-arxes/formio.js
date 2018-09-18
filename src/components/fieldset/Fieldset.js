@@ -43,7 +43,9 @@ export default class FieldsetComponent extends NestedComponent {
     });
     if (this.component.legend) {
       const legend = this.ce('legend');
-      legend.appendChild(this.text(this.component.legend));
+      legend.appendChild(this.text(this.interpolate(this.component.legend, {
+        data: this.data
+      })));
       this.createTooltip(legend);
       this.setCollapseHeader(legend);
       this.element.appendChild(legend);
