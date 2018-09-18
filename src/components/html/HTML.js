@@ -29,7 +29,9 @@ export default class HTMLComponent extends BaseComponent {
   }
 
   setHTML() {
-    this.element.innerHTML = this.interpolate(this.component.content);
+    this.element.innerHTML = this.interpolate(this.component.content, {
+      data: this.data
+    });
   }
 
   build() {
