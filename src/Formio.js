@@ -731,7 +731,8 @@ export default class Formio {
             Formio.events.emit('formio.unauthorized', response.body);
           }
           // Parse and return the error as a rejected promise to reject this promise
-          return (response.headers.get('content-type').includes('application/json')
+          const contentType = response.headers.get('content-type');
+          return (contentType && contentType.includes('application/json')
             ? response.json()
             : response.text())
             .then((error) => {
@@ -773,7 +774,8 @@ export default class Formio {
           return {};
         }
 
-        const getResult = response.headers.get('content-type').includes('application/json')
+        const contentType = response.headers.get('content-type');
+        const getResult = contentType && contentType.includes('application/json')
           ? response.json()
           : response.text();
         return getResult.then((result) => {
