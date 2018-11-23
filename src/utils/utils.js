@@ -392,6 +392,22 @@ export function interpolate(rawTemplate, data) {
 }
 
 /**
+ *
+ * @param string
+ * @param data
+ * @returns {boolean}
+ */
+export function validateInterpolationData(string, data) {
+  let invalid = false;
+  const matches = /{{.+?}}/ig.exec(string) || [];
+  matches.forEach(match => {
+    const propertyPath = match.substring(2, match.length - 2).trim();
+    invalid = invalid || !_.get(data, propertyPath);
+  });
+	return !invalid;
+}
+
+/**
  * Make a filename guaranteed to be unique.
  * @param name
  * @returns {string}

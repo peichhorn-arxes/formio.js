@@ -373,13 +373,17 @@ export default class SelectComponent extends BaseComponent {
     };
 
     // Allow for url interpolation.
-    url = this.interpolate(url, {
+    url = this.interpolateIfValid(url, {
       formioBase: Formio.getBaseUrl(),
       search,
       limit,
       skip,
       page: Math.abs(Math.floor(skip / limit))
     });
+
+    if (!url) {
+      return;
+    }
 
     // Add search capability.
     if (this.component.searchField && search) {
