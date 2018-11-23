@@ -81,7 +81,7 @@ export default class DataGridComponent extends NestedComponent {
   build() {
     this.createElement();
     this.createLabel(this.element);
-    let tableClass = 'table datagrid-table table-bordered form-group formio-data-grid ';
+    let tableClass = 'table datagrid-table form-group formio-data-grid ';
     _.each(['striped', 'bordered', 'hover', 'condensed'], (prop) => {
       if (this.component[prop]) {
         tableClass += `table-${prop} `;
