@@ -487,6 +487,21 @@ export default class Component {
   }
 
   /**
+   * Performs an interpolation using the evaluation context of this component.
+   *
+   * @param string
+   * @param data
+   * @return {XML|string|*|void}
+   */
+  interpolateIfValid(string, data) {
+    const evalContext = this.evalContext(data);
+    if (FormioUtils.validateInterpolationData(string, evalContext)) {
+      return FormioUtils.interpolate(string, evalContext);
+    }
+    return undefined;
+  }
+
+  /**
    * Performs an evaluation using the evaluation context of this component.
    *
    * @param func
