@@ -67,7 +67,21 @@ export default [
     label: 'Equal column width',
     key: 'layoutFixed',
     weight: 430,
-    input: true,
+    input: true
+  },
+  {
+    type: 'checkbox',
+    label: 'Add zebra-striping',
+    key: 'striped',
+    weight: 431,
+    input: true
+  },
+  {
+    type: 'checkbox',
+    label: 'Add borders on all sides',
+    key: 'bordered',
+    weight: 432,
+    input: true
   },
   {
     key: 'enableRowGroups',
