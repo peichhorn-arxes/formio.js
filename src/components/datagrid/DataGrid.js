@@ -167,7 +167,9 @@ export default class DataGridComponent extends NestedComponent {
           }
           return th;
         }),
-        hasEnd ? this.ce('th', null, (hasTopButton ? this.addButton(true) : null)) : null,
+        hasEnd ? this.ce('th', {
+          class: 'edit-column'
+        }, (hasTopButton ? this.addButton(true) : null)) : null,
       ]
     ));
     return needsHeader ? thead : null;
@@ -200,7 +202,9 @@ export default class DataGridComponent extends NestedComponent {
     this.rows[index] = {};
     let lastColumn = null;
     if (this.hasRemoveButtons()) {
-      lastColumn = this.ce('td', null, this.removeButton(index));
+      lastColumn = this.ce('td', {
+        class: 'edit-column'
+      }, this.removeButton(index));
     }
     else if (this.options.builder) {
       lastColumn = this.ce('td', {
