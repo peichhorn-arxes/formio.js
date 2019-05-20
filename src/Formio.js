@@ -206,7 +206,7 @@ export default class Formio {
     if (!this[_id]) {
       Promise.reject('Nothing to delete');
     }
-    Formio.cache = {};
+    Formio.clearCache();
     return this.makeRequest(type, this[_url], 'delete', null, opts);
   }
 
@@ -227,7 +227,7 @@ export default class Formio {
     if (!this[_id] && data._id && (method === 'put') && !reqUrl.includes(data._id)) {
       reqUrl += `/${data._id}`;
     }
-    Formio.cache = {};
+    Formio.clearCache();
     return this.makeRequest(type, reqUrl + this.query, method, data, opts);
   }
 
@@ -739,7 +739,26 @@ export default class Formio {
 
     // Get the cached promise to save multiple loads.
     if (!Formio.ignoreCache && !opts.ignoreCache && method === 'GET' && Formio.cache.hasOwnProperty(cacheKey)) {
-      return Promise.resolve(_cloneDeep(Formio.cache[cacheKey]));
+      if (!Formio.cacheTTL.hasOwnProperty(cacheKey) || (Formio.cacheTTL.hasOwnProperty(cacheKey) && Formio.cacheTTL[cacheKey] >= new Date().getTime())) {
+        return Formio.cache[cacheKey].then((result) => {
+          result = _cloneDeep(result);
+
+          let resultCopy = {};
+
+          // Shallow copy result so modifications don't end up in cache
+          if (Array.isArray(result)) {
+            resultCopy = result.map(copy);
+            resultCopy.skip = result.skip;
+            resultCopy.limit = result.limit;
+            resultCopy.serverCount = result.serverCount;
+          }
+          else {
+            resultCopy = copy(result);
+          }
+
+          return resultCopy;
+        });
+      }
     }
 
     // Set up and fetch request
@@ -774,7 +793,7 @@ export default class Formio {
     }
 
     const requestToken = options.headers['x-jwt-token'];
-    const result = Formio.fetch(url, options)
+    const responsePromise = Formio.fetch(url, options)
       .then((response) => {
         // Allow plugins to respond.
         response = Formio.pluginAlter('requestResponse', response, Formio);
@@ -864,31 +883,6 @@ export default class Formio {
           };
         });
       })
-      .then((result) => {
-        if (opts.getHeaders) {
-          return result;
-        }
-
-        // Cache the response.
-        if (!Formio.ignoreCache && (method === 'GET')) {
-          Formio.cache[cacheKey] = _cloneDeep(result);
-        }
-
-        let resultCopy = {};
-
-        // Shallow copy result so modifications don't end up in cache
-        if (Array.isArray(result)) {
-          resultCopy = result.map(copy);
-          resultCopy.skip = result.skip;
-          resultCopy.limit = result.limit;
-          resultCopy.serverCount = result.serverCount;
-        }
-        else {
-          resultCopy = copy(result);
-        }
-
-        return resultCopy;
-      })
       .catch((err) => {
         if (err === 'Bad Token') {
           Formio.setToken(null, opts);
@@ -905,8 +899,13 @@ export default class Formio {
 
         return Promise.reject(err);
       });
-
-    return result;
+    if (!Formio.ignoreCache && method === 'GET') {
+      Formio.cache[cacheKey] = responsePromise;
+      if (opts.cacheTTL) {
+        Formio.cacheTTL[cacheKey] = new Date().getTime() + opts.cacheTTL;
+      }
+    }
+    return responsePromise;
   }
 
   // Needed to maintain reverse compatability...
@@ -1063,6 +1062,7 @@ export default class Formio {
 
   static clearCache() {
     Formio.cache = {};
+    Formio.cacheTTL = {};
   }
 
   static noop() {}
@@ -1401,6 +1401,7 @@ Formio.authUrl = '';
 Formio.projectUrlSet = false;
 Formio.plugins = [];
 Formio.cache = {};
+Formio.cacheTTL = {};
 Formio.providers = providers;
 Formio.events = new EventEmitter({
   wildcard: false,
