@@ -36,14 +36,28 @@ export default class FieldsetComponent extends NestedComponent {
     return `form-group ${super.className}`;
   }
 
+  setLegend() {
+    this.legendText.innerHTML = this.interpolate(this.component.legend, {
+      data: this.data
+    });
+  }
+
   build(state) {
     this.element = this.ce('fieldset', {
       id: this.id,
       class: this.className
     });
     if (this.component.legend) {
+      this.legendText = this.ce('span');
       const legend = this.ce('legend');
-      legend.appendChild(this.text(this.component.legend));
+      legend.appendChild(this.legendText);
+
+      this.setLegend();
+
+      if (this.component.refreshOnChange) {
+        this.on('change', () => this.setLegend());
+      }
+
       this.createTooltip(legend);
       this.setCollapseHeader(legend);
       this.element.appendChild(legend);

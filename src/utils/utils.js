@@ -392,6 +392,22 @@ export function interpolate(rawTemplate, data) {
 }
 
 /**
+ *
+ * @param string
+ * @param data
+ * @returns {boolean}
+ */
+export function validateInterpolationData(string, data) {
+  let invalid = false;
+  const matches = /{{.+?}}/ig.exec(string) || [];
+  matches.forEach(match => {
+    const propertyPath = match.substring(2, match.length - 2).trim();
+    invalid = invalid || !_.get(data, propertyPath);
+  });
+	return !invalid;
+}
+
+/**
  * Make a filename guaranteed to be unique.
  * @param name
  * @returns {string}
@@ -729,22 +745,18 @@ export function getInputMask(mask) {
     return mask;
   }
   const maskArray = [];
-  maskArray.numeric = true;
   for (let i = 0; i < mask.length; i++) {
     switch (mask[i]) {
       case '9':
         maskArray.push(/\d/);
         break;
       case 'A':
-        maskArray.numeric = false;
         maskArray.push(/[a-zA-Z]/);
         break;
       case 'a':
-        maskArray.numeric = false;
         maskArray.push(/[a-z]/);
         break;
       case '*':
-        maskArray.numeric = false;
         maskArray.push(/[a-zA-Z0-9]/);
         break;
       default:

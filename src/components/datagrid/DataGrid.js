@@ -95,7 +95,7 @@ export default class DataGridComponent extends NestedComponent {
   build() {
     this.createElement();
     this.createLabel(this.element);
-    let tableClass = 'table datagrid-table table-bordered form-group formio-data-grid ';
+    let tableClass = 'table datagrid-table form-group formio-data-grid ';
     ['striped', 'bordered', 'hover', 'condensed'].forEach((prop) => {
       if (this.component[prop]) {
         tableClass += `table-${prop} `;
@@ -205,7 +205,9 @@ export default class DataGridComponent extends NestedComponent {
           }
           return th;
         }),
-        hasEnd ? this.ce('th', null, (hasTopButton ? this.addButton(true) : null)) : null,
+        hasEnd ? this.ce('th', {
+          class: 'edit-column'
+        }, (hasTopButton ? this.addButton(true) : null)) : null,
       ]
     ));
     return needsHeader ? thead : null;
@@ -256,7 +258,7 @@ export default class DataGridComponent extends NestedComponent {
     if (hasRmButton) {
       if (rmPlacement === 'col') {
         lastColumn = this.ce('td', {
-          class: 'formio-remove-column'
+          class: 'edit-column formio-remove-column'
         }, this.removeButton(index));
       }
       else {

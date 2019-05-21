@@ -706,7 +706,7 @@ export default class BaseComponent extends Component {
    */
   get className() {
     let className = this.hasInput ? 'form-group has-feedback ' : '';
-    className += `formio-component formio-component-${this.component.type} `;
+    className += `formio-component formio-component-${this.component.type} clearfix `;
     if (this.key) {
       className += `formio-component-${this.key} `;
     }
@@ -885,7 +885,12 @@ export default class BaseComponent extends Component {
     this.checkConditions();
     this.restoreValue();
     if (this.root) {
-      this.root.onChange();
+      this.root.triggerChange({}, {
+        instance: this,
+        component: this.component,
+        value: this.dataValue,
+        flags: {}
+      });
     }
   }
 
@@ -898,7 +903,12 @@ export default class BaseComponent extends Component {
     this.buildRows();
     this.restoreValue();
     if (this.root) {
-      this.root.onChange();
+      this.root.triggerChange({}, {
+        instance: this,
+        component: this.component,
+        value: this.dataValue,
+        flags: {}
+      });
     }
   }
 
@@ -1305,6 +1315,9 @@ export default class BaseComponent extends Component {
     this.description = this.ce('div', {
       class: 'help-block'
     });
+
+    this.setInputStyles(this.description);
+
     this.description.innerHTML = this.t(this.component.description);
     container.appendChild(this.description);
   }
@@ -1319,6 +1332,9 @@ export default class BaseComponent extends Component {
     this.errorElement = this.ce('div', {
       class: 'formio-errors invalid-feedback'
     });
+
+    this.setInputStyles(this.errorElement);
+
     this.errorContainer.appendChild(this.errorElement);
   }
 
@@ -1637,6 +1653,9 @@ export default class BaseComponent extends Component {
   applyActions(actions, result, data, newComponent) {
     return actions.reduce((changed, action) => {
       switch (action.type) {
+        case 'clear':
+          this.resetValue();
+        break;
         case 'property':
           FormioUtils.setActionProperty(newComponent, action, this.data, data, newComponent, result, this);
           break;

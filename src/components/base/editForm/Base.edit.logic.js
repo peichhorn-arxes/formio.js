@@ -186,6 +186,10 @@ export default [
                 data: {
                   values: [
                     {
+                      value: 'clear',
+                      label: 'Clear'
+                    },
+                    {
                       value: 'property',
                       label: 'Property'
                     },

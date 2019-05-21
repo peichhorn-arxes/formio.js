@@ -86,7 +86,7 @@ export default class CheckBoxComponent extends BaseComponent {
   }
 
   createElement() {
-    let className = `form-check ${this.className}`;
+    let className = this.className;
     if (!this.labelIsHidden()) {
       className += ` ${this.component.inputType || 'checkbox'}`;
     }
@@ -152,7 +152,7 @@ export default class CheckBoxComponent extends BaseComponent {
 
   createLabel(container, input) {
     const isLabelHidden = this.labelIsHidden();
-    let className = 'control-label form-check-label';
+    let className = 'control-label form-check-label form-check';
     if (this.component.input
       && !this.options.inputsOnly
       && this.component.validate
@@ -164,6 +164,8 @@ export default class CheckBoxComponent extends BaseComponent {
       class: className
     });
     this.addShortcut();
+
+    this.setInputStyles(this.labelElement);
 
     const labelOnTheTopOrOnTheLeft = this.labelOnTheTopOrLeft();
     if (!isLabelHidden) {

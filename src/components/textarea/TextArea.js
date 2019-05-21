@@ -116,6 +116,9 @@ export default class TextAreaComponent extends TextFieldComponent {
     else if (this.isPlain) {
       return super.createInput(container);
     }
+    else {
+      this.errorContainer = container;
+    }
 
     if (this.htmlView) {
       this.input = this.ce('div', {
@@ -208,7 +211,7 @@ export default class TextAreaComponent extends TextFieldComponent {
   }
 
   destroyWysiwyg() {
-    if (this.editor) {
+    if (this.editor && this.editor.destroy) {
       this.editor.destroy();
     }
   }
@@ -380,7 +383,7 @@ export default class TextAreaComponent extends TextFieldComponent {
 
   destroy() {
     if (this.editorReady) {
-      this.editorReady.then((editor) => editor.destroy());
+      this.editorReady.then(() => this.destroyWysiwyg());
     }
     return super.destroy();
   }

@@ -324,9 +324,6 @@ export default class Component {
         // Internal bug of vanilla-text-mask on iOS (`selectionEnd`);
         console.warn(e);
       }
-      if (mask.numeric) {
-        input.setAttribute('pattern', '\\d*');
-      }
       if (placeholder) {
         input.setAttribute('placeholder', this.maskPlaceholder(mask));
       }
@@ -523,6 +520,21 @@ export default class Component {
    */
   interpolate(string, data) {
     return FormioUtils.interpolate(string, this.evalContext(data));
+  }
+
+  /**
+   * Performs an interpolation using the evaluation context of this component.
+   *
+   * @param string
+   * @param data
+   * @return {XML|string|*|void}
+   */
+  interpolateIfValid(string, data) {
+    const evalContext = this.evalContext(data);
+    if (FormioUtils.validateInterpolationData(string, evalContext)) {
+      return FormioUtils.interpolate(string, evalContext);
+    }
+    return undefined;
   }
 
   /**
