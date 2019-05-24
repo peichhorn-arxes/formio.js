@@ -27,6 +27,7 @@ export default class SelectComponent extends BaseComponent {
       authenticate: false,
       template: '<span>{{ item.label }}</span>',
       selectFields: '',
+      customSearchCriteria: '',
       searchThreshold: 0.3,
       fuseOptions: {},
       customOptions: {}
@@ -139,6 +140,13 @@ export default class SelectComponent extends BaseComponent {
     return data;
   }
 
+  itemSearchCriteria(data) {
+    if (_.isObject(data) && this.component.customSearchCriteria) {
+      return this.interpolate(this.component.customSearchCriteria, { item: data });
+    }
+    return null;
+  }
+
   createInput(container) {
     this.selectContainer = container;
     this.selectInput = super.createInput(container);
@@ -150,10 +158,11 @@ export default class SelectComponent extends BaseComponent {
    * @param value
    * @param label
    */
-  addOption(value, label, attr) {
+  addOption(value, label, searchCriteria) {
     const option = {
-      value: value,
-      label: label
+      value,
+      label,
+      customProperties: { searchCriteria }
     };
 
     if (value) {
@@ -169,11 +178,7 @@ export default class SelectComponent extends BaseComponent {
       option.element.selected = 'selected';
     }
     option.element.innerHTML = label;
-    if (attr) {
-      _.each(attr, (value, key) => {
-        option.element.setAttribute(key, value);
-      });
-    }
+
     this.selectInput.appendChild(option.element);
   }
 
@@ -313,7 +318,7 @@ export default class SelectComponent extends BaseComponent {
 
     // Iterate through each of the items.
     _.each(items, (item) => {
-      this.addOption(this.itemValue(item), this.itemTemplate(item));
+      this.addOption(this.itemValue(item), this.itemTemplate(item), this.itemSearchCriteria(item));
     });
 
     if (this.choices) {
@@ -638,10 +643,10 @@ export default class SelectComponent extends BaseComponent {
       searchEnabled: useSearch,
       searchChoices: !searchField,
       searchFields: this.component.searchFields
-        || (searchField ? [`value.${searchField}`] : ['label']),
+        || (searchField ? [`value.${searchField}`] : ['label', 'customProperties.searchCriteria']),
       fuseOptions: Object.assign({
         include: 'score',
-        threshold: _.get(this, 'component.searchThreshold', 0.3),
+        threshold: _.get(this, 'component.searchThreshold', 0.3)
       }, _.get(this, 'component.fuseOptions', {})),
       itemComparer: _.isEqual,
       ...customOptions,
