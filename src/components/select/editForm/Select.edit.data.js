@@ -337,6 +337,16 @@ export default [
     tooltip: 'The HTML template for the result data items.'
   },
   {
+    type: 'textarea',
+    input: true,
+    key: 'customSearchCriteria',
+    label: 'Custom search criteria',
+    editor: 'ace',
+    rows: 3,
+    weight: 19,
+    tooltip: 'The template for adding custom search criteria.'
+  },
+  {
     type: 'checkbox',
     input: true,
     weight: 20,
