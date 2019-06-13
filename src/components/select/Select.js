@@ -350,7 +350,7 @@ export default class SelectComponent extends BaseComponent {
   }
   /* eslint-enable max-statements */
 
-  loadItems(url, search, headers, options, method, body) {
+  loadItems(data, search, headers, options, method, body) {
     options = options || {};
 
     // See if they have not met the minimum search requirements.
@@ -370,25 +370,20 @@ export default class SelectComponent extends BaseComponent {
       body = null;
     }
 
+    let url = this.getUrl(data, search);
+
+    if (!url) {
+      return;
+    }
+
+    this.url = url;
+
     const limit = this.component.limit || 100;
     const skip = this.loadedItems || 0;
     const query = (this.component.dataSrc === 'url') ? {} : {
       limit: limit,
       skip: skip
     };
-
-    // Allow for url interpolation.
-    url = this.interpolateIfValid(url, {
-      formioBase: Formio.getBaseUrl(),
-      search,
-      limit,
-      skip,
-      page: Math.abs(Math.floor(skip / limit))
-    });
-
-    if (!url) {
-      return;
-    }
 
     // Add search capability.
     if (this.component.searchField && search) {
@@ -478,8 +473,47 @@ export default class SelectComponent extends BaseComponent {
     this.setItems(this.getCustomItems() || []);
   }
 
+  urlChanged(data, search) {
+    if (['url', 'resource'].includes(this.component.dataSrc)) {
+      return this.url !== this.getUrl(data, search);
+    }
+    return false;
+  }
+
+  getUrl(data, search) {
+    let url;
+    switch (this.component.dataSrc) {
+      case 'resource': {
+        url = this.options.formio ? this.options.formio.formsUrl : `${Formio.getProjectUrl()}/form`;
+        url += `/${this.component.data.resource}/submission`;
+        break;
+      }
+      case 'url': {
+        url = this.component.data.url;
+        if (url.substr(0, 1) === '/') {
+          const baseUrl = Formio.getProjectUrl() || Formio.getBaseUrl();
+          url = baseUrl + this.component.data.url;
+        }
+        break;
+      }
+      default:
+        return;
+    }
+
+    const limit = this.component.limit || 100;
+    const skip = this.loadedItems || 0;
+    return this.interpolateIfValid(url, {
+      formioBase: Formio.getBaseUrl(),
+      data,
+      search,
+      limit,
+      skip,
+      page: Math.abs(Math.floor(skip / limit))
+    });
+  }
+
   /* eslint-disable max-statements */
-  updateItems(searchInput, forceUpdate) {
+  updateItems(searchInput, forceUpdate, data) {
     if (!this.component.data) {
       console.warn(`Select component ${this.key} does not have data configuration.`);
       this.itemsLoadedResolve();
@@ -508,11 +542,9 @@ export default class SelectComponent extends BaseComponent {
         if (!this.component.data.resource || (!forceUpdate && !this.active)) {
           return;
         }
-        let resourceUrl = this.options.formio ? this.options.formio.formsUrl : `${Formio.getProjectUrl()}/form`;
-        resourceUrl += (`/${this.component.data.resource}/submission`);
 
         try {
-          this.loadItems(resourceUrl, searchInput, this.requestHeaders);
+          this.loadItems(data, searchInput, this.requestHeaders);
         }
         catch (err) {
           console.warn(`Unable to load resources for ${this.key}`);
@@ -524,17 +556,9 @@ export default class SelectComponent extends BaseComponent {
           // If we are lazyLoading, wait until activated.
           return;
         }
-        let url = this.component.data.url;
+
         let method;
         let body;
-
-        if (url.substr(0, 1) === '/') {
-          let baseUrl = Formio.getProjectUrl();
-          if (!baseUrl) {
-            baseUrl = Formio.getBaseUrl();
-          }
-          url = baseUrl + this.component.data.url;
-        }
 
         if (!this.component.data.method) {
           method = 'GET';
@@ -549,7 +573,7 @@ export default class SelectComponent extends BaseComponent {
           }
         }
         const options = this.component.authenticate ? {} : { noToken: true };
-        this.loadItems(url, searchInput, this.requestHeaders, options, method, body);
+        this.loadItems(data, searchInput, this.requestHeaders, options, method, body);
         break;
       }
     }
@@ -866,7 +890,7 @@ export default class SelectComponent extends BaseComponent {
     this.triggerUpdate();
   }
 
-  setValue(value, flags) {
+  setValue(value, flags, data) {
     flags = this.getFlags.apply(this, arguments);
     const previousValue = this.dataValue;
     if (this.component.multiple && !Array.isArray(value)) {
@@ -893,8 +917,11 @@ export default class SelectComponent extends BaseComponent {
     ) {
       this.loading = true;
       this.lazyLoadInit = true;
-      this.triggerUpdate(this.dataValue, true);
+      this.triggerUpdate(this.dataValue, true, data);
       return changed;
+    }
+    else if (this.urlChanged(data, this.dataValue)) {
+      this.triggerUpdate(this.dataValue, true, data);
     }
 
     // Add the value options.
