@@ -472,6 +472,11 @@ export default class DataGridComponent extends NestedComponent {
   }
   /* eslint-enable max-statements */
 
+  resetValue() {
+    super.resetValue();
+    this.buildRows();
+  }
+
   /**
    * Get the value of this component.
    *

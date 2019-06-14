@@ -1,4 +1,4 @@
-import Promise from 'native-promise-only';
+import NativePromise from 'native-promise-only';
 
 import _ from 'lodash';
 
@@ -10,10 +10,13 @@ export default class PDF extends Webform {
     super(element, options);
 
     // Resolve when the iframe is ready.
-    this.iframeReady = new Promise((resolve) => (this.iframeReadyResolve = resolve));
+    this.iframeReady = new NativePromise((resolve) => (this.iframeReadyResolve = resolve));
   }
 
   postMessage(message) {
+    if (!message || !this.iframeReady) {
+      return;
+    }
     if (!message.type) {
       message.type = 'iframe-data';
     }
@@ -60,6 +63,8 @@ export default class PDF extends Webform {
         this.postMessage({ name: 'token', data: this.formio.getToken() });
       }
       this.postMessage({ name: 'form', data: form });
+
+      return form;
     });
   }
 
@@ -174,7 +179,7 @@ export default class PDF extends Webform {
 window.addEventListener('message', (event) => {
   let eventData = null;
   try {
-    eventData = JSON.parse(event.data);
+    eventData = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
   }
   catch (err) {
     eventData = null;

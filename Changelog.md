@@ -4,6 +4,93 @@ All notable changes to this project will be documented in this file
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.22.6
+### Fixed
+ - Problem where the wysiwyg settings would get reset when hidden.
+ - Issues where infinite onchange events would get triggered if a checkbox component was configured as Radio, but no Radio Key is provided.
+
+## 3.22.5
+### Fixed
+ - Date picker suffix icon for Bootstrap 4
+ - Problems with the PDF builder not allowing edit after the component has been added to the form.
+
+## 3.22.4
+### Changed
+ - Changed all "Promise" instances to use the "NativePromise" polyfill so that core-js would not include a Polyfill of Promise. This was causing issues with other frameworks (Angular) where they duck-punch the Promise library and throw errors when anything other than their wrappers are used (like what zone.js does).
+
+## 3.22.3
+### Changed
+ - Moved core-js as a dependency so that other libs dependent on core-js@2 can still build this module.
+ - Moved the CKEditor NumRows plugin to the formio/ckeditor5-build-classic repo.
+
+### Fixed
+ - FOR-2314: Re-fixed builder buttons missing after redraw + fixed Wizard building being broken
+
+## 3.22.2
+### Fixed
+ - Issues with the form builder not able to switch between wizard pages.
+
+## 3.22.1
+### Fixed
+ - Issues where the "rows" property was not working on CKEditor.
+
+### Added
+ - Ability to configure the wysiwyg settings for the CKEditor.
+
+## 3.22.0
+### Changed
+ - Upgraded to core-js@3
+ - Upgraded all dependencies.
+
+### Fixed
+ - Issue where reset for Day component was messing up the data.
+ - Sketchpad: Issues with resizing drawing area on beta portal and JS Fiddles
+ - FOR-2314: Builder buttons missing after redraw (for ex. when component has ```refreshOn: 'data'```)
+
+## 3.21.5
+### Fixed
+ - Issues with the CKEditor not working correctly.
+
+## 3.21.4
+### Fixed
+ - Issues with the PDF builder.
+ - Tagpad -> Form data not changing on dot selection, typing in inner tagpad components not working correctly (both reproduce in ng-formio)
+ - FOR-2313: Sketchpad -> Fixed color pickers not working on beta portal
+
+## 3.21.3
+### Fixed
+ - FOR-2309: Tagpad -> Fixed drawing area being rendered over builder buttons when no background image is specified
+ - FOR-2312: Tagpad -> Fixed drawing not working on mobile
+
+## 3.21.2
+### Fixed
+ - FOR-2319: Tagpad -> Fixed drawing area not being auto-resized on initial render when it's inside of Tabs component
+
+## 3.21.1
+### Fixed
+ - FOR-2310: Tagpad -> Fixed dot being drawn with offset when initial image has minX minY in viewBox
+
+## 3.21.0 
+### Added
+ - FOR-2290: Ability to specify file name template for File component
+
+### Fixed
+ - Reset values for DataGrid component.
+ - Tagpad: Layout (Columns, Panel etc.) components not rendering
+ - FOR-2079: Cursor jumping in WYSIWYGs when typing in ng-formio, added test
+ - Columns inner Column component having ```input: true``` inside of component JSON
+ - File uploads within the wizard forms.
+ - Fix adding new resource from within multiple-values select.
+ 
+### Changed
+ - Make it so that it will keep components from deleting if the component has a getComponents method.
+ - Upgraded i18next@15.1.3, @babel/core@7.4.5, @babel/preset-env@7.4.5, webpack@4.32.2
+
+## 3.20.17
+### Fixed
+ - Issue with the onChange for textarea's with wysiwyg enabled.
+ - Problems where the pristine flag would not get set correctly.
+
 ## 3.20.16
 ### Fixed
  - Fix error where the modified flag was getting fired for wysiwyg editors.

@@ -177,12 +177,17 @@ export default [
     label: 'Editor Settings',
     tooltip: 'Enter the WYSIWYG editor JSON configuration.',
     key: 'wysiwyg',
+    clearOnHide: false,
     customDefaultValue(value, component, row, data, instance) {
       return instance.wysiwygDefault;
     },
     conditional: {
       json: {
         or: [
+          { '===': [
+            { var: 'data.editor' },
+            'ckeditor'
+          ] },
           { '===': [
             { var: 'data.editor' },
             'quill'

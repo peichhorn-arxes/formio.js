@@ -2095,13 +2095,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/formio.js~formio.token",
-    "class/src/Formio.js~Formio.html#static-get-token",
+    "class/src/Formio.js~Formio.html#static-set-token",
     "src/Formio.js~Formio.token",
     "member"
   ],
   [
     "src/formio.js~formio.token",
-    "class/src/Formio.js~Formio.html#static-set-token",
+    "class/src/Formio.js~Formio.html#static-get-token",
     "src/Formio.js~Formio.token",
     "member"
   ],
@@ -2503,13 +2503,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/webform.js~webform#form",
-    "class/src/Webform.js~Webform.html#instance-set-form",
+    "class/src/Webform.js~Webform.html#instance-get-form",
     "src/Webform.js~Webform#form",
     "member"
   ],
   [
     "src/webform.js~webform#form",
-    "class/src/Webform.js~Webform.html#instance-get-form",
+    "class/src/Webform.js~Webform.html#instance-set-form",
     "src/Webform.js~Webform#form",
     "member"
   ],
@@ -2767,13 +2767,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/webform.js~webform#src",
-    "class/src/Webform.js~Webform.html#instance-get-src",
+    "class/src/Webform.js~Webform.html#instance-set-src",
     "src/Webform.js~Webform#src",
     "member"
   ],
   [
     "src/webform.js~webform#src",
-    "class/src/Webform.js~Webform.html#instance-set-src",
+    "class/src/Webform.js~Webform.html#instance-get-src",
     "src/Webform.js~Webform#src",
     "member"
   ],
@@ -2863,13 +2863,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/webform.js~webform#url",
-    "class/src/Webform.js~Webform.html#instance-get-url",
+    "class/src/Webform.js~Webform.html#instance-set-url",
     "src/Webform.js~Webform#url",
     "member"
   ],
   [
     "src/webform.js~webform#url",
-    "class/src/Webform.js~Webform.html#instance-set-url",
+    "class/src/Webform.js~Webform.html#instance-get-url",
     "src/Webform.js~Webform#url",
     "member"
   ],
@@ -3469,13 +3469,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/wizardbuilder.js~wizardbuilder#currentpage",
-    "class/src/WizardBuilder.js~WizardBuilder.html#instance-get-currentPage",
+    "class/src/WizardBuilder.js~WizardBuilder.html#instance-set-currentPage",
     "src/WizardBuilder.js~WizardBuilder#currentPage",
     "member"
   ],
   [
     "src/wizardbuilder.js~wizardbuilder#currentpage",
-    "class/src/WizardBuilder.js~WizardBuilder.html#instance-set-currentPage",
+    "class/src/WizardBuilder.js~WizardBuilder.html#instance-get-currentPage",
     "src/WizardBuilder.js~WizardBuilder#currentPage",
     "member"
   ],
@@ -4147,13 +4147,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/base/base.js~basecomponent#datavalue",
-    "class/src/components/base/Base.js~BaseComponent.html#instance-get-dataValue",
+    "class/src/components/base/Base.js~BaseComponent.html#instance-set-dataValue",
     "src/components/base/Base.js~BaseComponent#dataValue",
     "member"
   ],
   [
     "src/components/base/base.js~basecomponent#datavalue",
-    "class/src/components/base/Base.js~BaseComponent.html#instance-set-dataValue",
+    "class/src/components/base/Base.js~BaseComponent.html#instance-get-dataValue",
     "src/components/base/Base.js~BaseComponent#dataValue",
     "member"
   ],
@@ -4459,13 +4459,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/base/base.js~basecomponent#label",
-    "class/src/components/base/Base.js~BaseComponent.html#instance-set-label",
+    "class/src/components/base/Base.js~BaseComponent.html#instance-get-label",
     "src/components/base/Base.js~BaseComponent#label",
     "member"
   ],
   [
     "src/components/base/base.js~basecomponent#label",
-    "class/src/components/base/Base.js~BaseComponent.html#instance-get-label",
+    "class/src/components/base/Base.js~BaseComponent.html#instance-set-label",
     "src/components/base/Base.js~BaseComponent#label",
     "member"
   ],
@@ -4552,6 +4552,12 @@ window.esdocSearchIndex = [
     "class/src/components/base/Base.js~BaseComponent.html#instance-method-performInputMapping",
     "src/components/base/Base.js~BaseComponent#performInputMapping",
     "method"
+  ],
+  [
+    "src/components/base/base.js~basecomponent#persist",
+    "class/src/components/base/Base.js~BaseComponent.html#instance-member-persist",
+    "src/components/base/Base.js~BaseComponent#persist",
+    "member"
   ],
   [
     "src/components/base/base.js~basecomponent#prepend",
@@ -4885,13 +4891,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/base/base.js~basecomponent#visible",
-    "class/src/components/base/Base.js~BaseComponent.html#instance-set-visible",
+    "class/src/components/base/Base.js~BaseComponent.html#instance-get-visible",
     "src/components/base/Base.js~BaseComponent#visible",
     "member"
   ],
   [
     "src/components/base/base.js~basecomponent#visible",
-    "class/src/components/base/Base.js~BaseComponent.html#instance-get-visible",
+    "class/src/components/base/Base.js~BaseComponent.html#instance-set-visible",
     "src/components/base/Base.js~BaseComponent#visible",
     "member"
   ],
@@ -5286,6 +5292,18 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/components/checkbox/checkbox.js~checkboxcomponent#getradiogroupitems",
+    "class/src/components/checkbox/Checkbox.js~CheckBoxComponent.html#instance-method-getRadioGroupItems",
+    "src/components/checkbox/Checkbox.js~CheckBoxComponent#getRadioGroupItems",
+    "method"
+  ],
+  [
+    "src/components/checkbox/checkbox.js~checkboxcomponent#getradiogroupvalue",
+    "class/src/components/checkbox/Checkbox.js~CheckBoxComponent.html#instance-method-getRadioGroupValue",
+    "src/components/checkbox/Checkbox.js~CheckBoxComponent#getRadioGroupValue",
+    "method"
+  ],
+  [
     "src/components/checkbox/checkbox.js~checkboxcomponent#getvalue",
     "class/src/components/checkbox/Checkbox.js~CheckBoxComponent.html#instance-method-getValue",
     "src/components/checkbox/Checkbox.js~CheckBoxComponent#getValue",
@@ -5326,6 +5344,12 @@ window.esdocSearchIndex = [
     "class/src/components/checkbox/Checkbox.js~CheckBoxComponent.html#instance-method-isEmpty",
     "src/components/checkbox/Checkbox.js~CheckBoxComponent#isEmpty",
     "method"
+  ],
+  [
+    "src/components/checkbox/checkbox.js~checkboxcomponent#isradiocheckbox",
+    "class/src/components/checkbox/Checkbox.js~CheckBoxComponent.html#instance-get-isRadioCheckbox",
+    "src/components/checkbox/Checkbox.js~CheckBoxComponent#isRadioCheckbox",
+    "member"
   ],
   [
     "src/components/checkbox/checkbox.js~checkboxcomponent#key",
@@ -5448,10 +5472,22 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/components/columns/column.js~columncomponent#defaultschema",
+    "class/src/components/columns/Column.js~ColumnComponent.html#instance-get-defaultSchema",
+    "src/components/columns/Column.js~ColumnComponent#defaultSchema",
+    "member"
+  ],
+  [
     "src/components/columns/column.js~columncomponent#noedit",
     "class/src/components/columns/Column.js~ColumnComponent.html#instance-member-noEdit",
     "src/components/columns/Column.js~ColumnComponent#noEdit",
     "member"
+  ],
+  [
+    "src/components/columns/column.js~columncomponent.schema",
+    "class/src/components/columns/Column.js~ColumnComponent.html#static-method-schema",
+    "src/components/columns/Column.js~ColumnComponent.schema",
+    "method"
   ],
   [
     "src/components/columns/columns.form.js",
@@ -5965,13 +6001,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/datagrid/datagrid.js~datagridcomponent#datavalue",
-    "class/src/components/datagrid/DataGrid.js~DataGridComponent.html#instance-set-dataValue",
+    "class/src/components/datagrid/DataGrid.js~DataGridComponent.html#instance-get-dataValue",
     "src/components/datagrid/DataGrid.js~DataGridComponent#dataValue",
     "member"
   ],
   [
     "src/components/datagrid/datagrid.js~datagridcomponent#datavalue",
-    "class/src/components/datagrid/DataGrid.js~DataGridComponent.html#instance-get-dataValue",
+    "class/src/components/datagrid/DataGrid.js~DataGridComponent.html#instance-set-dataValue",
     "src/components/datagrid/DataGrid.js~DataGridComponent#dataValue",
     "member"
   ],
@@ -6099,6 +6135,12 @@ window.esdocSearchIndex = [
     "src/components/datagrid/datagrid.js~datagridcomponent#removebuttonsmall",
     "class/src/components/datagrid/DataGrid.js~DataGridComponent.html#instance-method-removeButtonSmall",
     "src/components/datagrid/DataGrid.js~DataGridComponent#removeButtonSmall",
+    "method"
+  ],
+  [
+    "src/components/datagrid/datagrid.js~datagridcomponent#resetvalue",
+    "class/src/components/datagrid/DataGrid.js~DataGridComponent.html#instance-method-resetValue",
+    "src/components/datagrid/DataGrid.js~DataGridComponent#resetValue",
     "method"
   ],
   [
@@ -6610,6 +6652,12 @@ window.esdocSearchIndex = [
     "class/src/components/day/Day.js~DayComponent.html#instance-method-elementInfo",
     "src/components/day/Day.js~DayComponent#elementInfo",
     "method"
+  ],
+  [
+    "src/components/day/day.js~daycomponent#emptyvalue",
+    "class/src/components/day/Day.js~DayComponent.html#instance-get-emptyValue",
+    "src/components/day/Day.js~DayComponent#emptyValue",
+    "member"
   ],
   [
     "src/components/day/day.js~daycomponent#errorcontainer",
@@ -7831,13 +7879,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/form/form.js~formcomponent#currentform",
-    "class/src/components/form/Form.js~FormComponent.html#instance-get-currentForm",
+    "class/src/components/form/Form.js~FormComponent.html#instance-set-currentForm",
     "src/components/form/Form.js~FormComponent#currentForm",
     "member"
   ],
   [
     "src/components/form/form.js~formcomponent#currentform",
-    "class/src/components/form/Form.js~FormComponent.html#instance-set-currentForm",
+    "class/src/components/form/Form.js~FormComponent.html#instance-get-currentForm",
     "src/components/form/Form.js~FormComponent#currentForm",
     "member"
   ],
@@ -7915,25 +7963,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/form/form.js~formcomponent#nosubmit",
-    "class/src/components/form/Form.js~FormComponent.html#instance-get-nosubmit",
-    "src/components/form/Form.js~FormComponent#nosubmit",
-    "member"
-  ],
-  [
-    "src/components/form/form.js~formcomponent#nosubmit",
     "class/src/components/form/Form.js~FormComponent.html#instance-set-nosubmit",
     "src/components/form/Form.js~FormComponent#nosubmit",
     "member"
   ],
   [
-    "src/components/form/form.js~formcomponent#parentvisible",
-    "class/src/components/form/Form.js~FormComponent.html#instance-set-parentVisible",
-    "src/components/form/Form.js~FormComponent#parentVisible",
+    "src/components/form/form.js~formcomponent#nosubmit",
+    "class/src/components/form/Form.js~FormComponent.html#instance-get-nosubmit",
+    "src/components/form/Form.js~FormComponent#nosubmit",
     "member"
   ],
   [
     "src/components/form/form.js~formcomponent#parentvisible",
     "class/src/components/form/Form.js~FormComponent.html#instance-get-parentVisible",
+    "src/components/form/Form.js~FormComponent#parentVisible",
+    "member"
+  ],
+  [
+    "src/components/form/form.js~formcomponent#parentvisible",
+    "class/src/components/form/Form.js~FormComponent.html#instance-set-parentVisible",
     "src/components/form/Form.js~FormComponent#parentVisible",
     "member"
   ],
@@ -8827,13 +8875,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/nested/nestedcomponent.js~nestedcomponent#visible",
-    "class/src/components/nested/NestedComponent.js~NestedComponent.html#instance-set-visible",
+    "class/src/components/nested/NestedComponent.js~NestedComponent.html#instance-get-visible",
     "src/components/nested/NestedComponent.js~NestedComponent#visible",
     "member"
   ],
   [
     "src/components/nested/nestedcomponent.js~nestedcomponent#visible",
-    "class/src/components/nested/NestedComponent.js~NestedComponent.html#instance-get-visible",
+    "class/src/components/nested/NestedComponent.js~NestedComponent.html#instance-set-visible",
     "src/components/nested/NestedComponent.js~NestedComponent#visible",
     "member"
   ],
@@ -9652,6 +9700,12 @@ window.esdocSearchIndex = [
     "class/src/components/select/Select.js~SelectComponent.html#instance-get-active",
     "src/components/select/Select.js~SelectComponent#active",
     "member"
+  ],
+  [
+    "src/components/select/select.js~selectcomponent#addautofillhoneyinput",
+    "class/src/components/select/Select.js~SelectComponent.html#instance-method-addAutofillHoneyInput",
+    "src/components/select/Select.js~SelectComponent#addAutofillHoneyInput",
+    "method"
   ],
   [
     "src/components/select/select.js~selectcomponent#addcurrentchoices",
@@ -10950,9 +11004,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/components/textarea/textarea.js~textareacomponent#setasyncconvertedvalue",
+    "class/src/components/textarea/TextArea.js~TextAreaComponent.html#instance-method-setAsyncConvertedValue",
+    "src/components/textarea/TextArea.js~TextAreaComponent#setAsyncConvertedValue",
+    "method"
+  ],
+  [
     "src/components/textarea/textarea.js~textareacomponent#setconvertedvalue",
     "class/src/components/textarea/TextArea.js~TextAreaComponent.html#instance-method-setConvertedValue",
     "src/components/textarea/TextArea.js~TextAreaComponent#setConvertedValue",
+    "method"
+  ],
+  [
+    "src/components/textarea/textarea.js~textareacomponent#setimagesurl",
+    "class/src/components/textarea/TextArea.js~TextAreaComponent.html#instance-method-setImagesUrl",
+    "src/components/textarea/TextArea.js~TextAreaComponent#setImagesUrl",
     "method"
   ],
   [
@@ -12168,6 +12234,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/contrib/tagpad/tagpad.js~tagpad#addtagpadcomponent",
+    "class/src/contrib/tagpad/tagpad.js~Tagpad.html#instance-method-addTagpadComponent",
+    "src/contrib/tagpad/tagpad.js~Tagpad#addTagpadComponent",
+    "method"
+  ],
+  [
     "src/contrib/tagpad/tagpad.js~tagpad#attach",
     "class/src/contrib/tagpad/tagpad.js~Tagpad.html#instance-method-attach",
     "src/contrib/tagpad/tagpad.js~Tagpad#attach",
@@ -12310,6 +12382,12 @@ window.esdocSearchIndex = [
     "class/src/contrib/tagpad/tagpad.js~Tagpad.html#instance-method-getValue",
     "src/contrib/tagpad/tagpad.js~Tagpad#getValue",
     "method"
+  ],
+  [
+    "src/contrib/tagpad/tagpad.js~tagpad#hasbackgroundimage",
+    "class/src/contrib/tagpad/tagpad.js~Tagpad.html#instance-get-hasBackgroundImage",
+    "src/contrib/tagpad/tagpad.js~Tagpad#hasBackgroundImage",
+    "member"
   ],
   [
     "src/contrib/tagpad/tagpad.js~tagpad#redrawdots",

@@ -2,6 +2,7 @@ import Choices from 'choices.js/public/assets/scripts/choices.js';
 import _ from 'lodash';
 import BaseComponent from '../base/Base';
 import Formio from '../../Formio';
+import NativePromise from 'native-promise-only';
 
 export default class SelectComponent extends BaseComponent {
   static schema(...extend) {
@@ -64,7 +65,7 @@ export default class SelectComponent extends BaseComponent {
     this.activated = false;
 
     // Determine when the items have been loaded.
-    this.itemsLoaded = new Promise((resolve) => {
+    this.itemsLoaded = new NativePromise((resolve) => {
       this.itemsLoadedResolve = resolve;
     });
   }
@@ -147,9 +148,28 @@ export default class SelectComponent extends BaseComponent {
     return null;
   }
 
+  addAutofillHoneyInput(container, input) {
+    const autofillInput = this.ce('input', {
+      type: 'text',
+      name: this.info.attr.name,
+      style: 'display: none',
+    });
+
+    input.addEventListener('change', (event) => {
+      autofillInput.value = JSON.stringify(event.detail.value);
+    });
+
+    autofillInput.addEventListener('change', (event) => {
+      this.updateValue({}, JSON.parse(event.target.value));
+    });
+
+    container.appendChild(autofillInput);
+  }
+
   createInput(container) {
     this.selectContainer = container;
     this.selectInput = super.createInput(container);
+    this.addAutofillHoneyInput(this.selectContainer, this.selectInput);
   }
 
   /**
