@@ -67,6 +67,9 @@ export default class SelectComponent extends BaseComponent {
     this.itemsLoaded = new Promise((resolve) => {
       this.itemsLoadedResolve = resolve;
     });
+
+    this.currentUrl = undefined;
+    this.newUrl = undefined;
   }
 
   get dataReady() {
@@ -370,13 +373,16 @@ export default class SelectComponent extends BaseComponent {
       body = null;
     }
 
-    let url = this.getUrl(data, search);
-
-    if (!url) {
+    if (this.currentUrl === this.newUrl) {
       return;
     }
 
-    this.url = url;
+    // console.log(`${this.component.key}.loadItems(): loading new URL: ${this.currentUrl} -> ${this.newUrl}`);
+    this.currentUrl = this.newUrl;
+
+    if (!this.newUrl) {
+      return this.setItems([]); // TODO sometimes items stay!?
+    }
 
     const limit = this.component.limit || 100;
     const skip = this.loadedItems || 0;
@@ -404,6 +410,8 @@ export default class SelectComponent extends BaseComponent {
     if (this.component.sort) {
       query.sort = this.component.sort;
     }
+
+    let url = this.currentUrl;
 
     if (!_.isEmpty(query)) {
       // Add the query string.
@@ -471,13 +479,6 @@ export default class SelectComponent extends BaseComponent {
 
   updateCustomItems() {
     this.setItems(this.getCustomItems() || []);
-  }
-
-  urlChanged(data, search) {
-    if (['url', 'resource'].includes(this.component.dataSrc)) {
-      return this.url !== this.getUrl(data, search);
-    }
-    return false;
   }
 
   getUrl(data, search) {
@@ -906,6 +907,8 @@ export default class SelectComponent extends BaseComponent {
       return changed;
     }
 
+    const updateEventAllowed = !(flags && flags.noUpdateEvent);
+
     // Determine if we need to perform an initial lazyLoad api call if searchField is provided.
     if (
       this.component.searchField &&
@@ -917,11 +920,21 @@ export default class SelectComponent extends BaseComponent {
     ) {
       this.loading = true;
       this.lazyLoadInit = true;
-      this.triggerUpdate(this.dataValue, true, data);
+      if (updateEventAllowed) {
+        this.triggerUpdate(this.dataValue, true, data);
+      }
       return changed;
     }
-    else if (this.urlChanged(data, this.dataValue)) {
-      this.triggerUpdate(this.dataValue, true, data);
+
+    if (['url', 'resource'].includes(this.component.dataSrc)) {
+      const newUrl = this.getUrl(data, this.dataValue);
+      if (newUrl !== this.currentUrl) {
+        this.newUrl = newUrl;
+        // console.log(`${this.component.key}.setValue('${value}'): set new URL: ${this.currentUrl} -> ${this.newUrl}`);
+        if (updateEventAllowed) {
+          this.triggerUpdate(this.dataValue, true, data);
+        }
+      }
     }
 
     // Add the value options.
