@@ -31,7 +31,8 @@ export default class SelectComponent extends BaseComponent {
       customSearchCriteria: '',
       searchThreshold: 0.3,
       fuseOptions: {},
-      customOptions: {}
+      customOptions: {},
+      infiniteScroll: false
     }, ...extend);
   }
 
@@ -262,7 +263,7 @@ export default class SelectComponent extends BaseComponent {
   stopInfiniteScroll() {
     // Remove the infinite scroll listener.
     this.scrollLoading = false;
-    if (this.scrollList) {
+    if (this.scrollList && this.component.infiniteScroll) {
       this.scrollList.removeEventListener('scroll', this.onScroll);
     }
   }
@@ -358,13 +359,13 @@ export default class SelectComponent extends BaseComponent {
 
     // If a value is provided, then select it.
     if (this.dataValue) {
-      this.setValue(this.dataValue, true);
+      this.setValue(this.dataValue, { noUpdateEvent: true });
     }
     else {
       // If a default value is provided then select it.
       const defaultValue = this.defaultValue;
       if (defaultValue) {
-        this.setValue(defaultValue);
+        this.setValue(defaultValue, { noUpdateEvent: true });
       }
     }
 
@@ -724,7 +725,9 @@ export default class SelectComponent extends BaseComponent {
         this.triggerUpdate(this.choices.input.element.value);
       }
     };
-    this.scrollList.addEventListener('scroll', this.onScroll);
+    if (this.component.infiniteScroll) {
+      this.scrollList.addEventListener('scroll', this.onScroll);
+    }
 
     this.addFocusBlurEvents(this.focusableElement);
     this.focusableElement.setAttribute('tabIndex', tabIndex);
@@ -858,11 +861,9 @@ export default class SelectComponent extends BaseComponent {
       if (this.choices) {
         this.choices.setChoices(notFoundValuesToAdd, 'value', 'label');
       }
-      else {
-        notFoundValuesToAdd.map(notFoundValue => {
-          this.addOption(notFoundValue.value, notFoundValue.label);
-        });
-      }
+      notFoundValuesToAdd.map(notFoundValue => {
+        this.addOption(notFoundValue.value, notFoundValue.label);
+      });
     }
     return added;
   }
@@ -920,14 +921,14 @@ export default class SelectComponent extends BaseComponent {
     const hasPreviousValue = Array.isArray(previousValue) ? previousValue.length : previousValue;
     const hasValue = Array.isArray(value) ? value.length : value;
     const changed = this.hasChanged(value, previousValue);
+    const updateEventAllowed = !(flags && flags.noUpdateEvent);
+
     this.dataValue = value;
 
     // Do not set the value if we are loading... that will happen after it is done.
     if (this.loading) {
       return changed;
     }
-
-    const updateEventAllowed = !(flags && flags.noUpdateEvent);
 
     // Determine if we need to perform an initial lazyLoad api call if searchField is provided.
     if (
@@ -946,12 +947,12 @@ export default class SelectComponent extends BaseComponent {
       return changed;
     }
 
-    if (['url', 'resource'].includes(this.component.dataSrc)) {
-      const newUrl = this.getUrl(data, this.dataValue);
-      if (newUrl !== this.currentUrl) {
-        this.newUrl = newUrl;
-        // console.log(`${this.component.key}.setValue('${value}'): set new URL: ${this.currentUrl} -> ${this.newUrl}`);
-        if (updateEventAllowed) {
+    if (updateEventAllowed) {
+      if (['url', 'resource'].includes(this.component.dataSrc)) {
+        const newUrl = this.getUrl(data, this.dataValue);
+        if (newUrl !== this.currentUrl) {
+          this.newUrl = newUrl;
+          console.log(`${this.component.key}.setValue('${value}'): set new URL: ${this.currentUrl} -> ${this.newUrl}`);
           this.triggerUpdate(this.dataValue, true, data);
         }
       }
