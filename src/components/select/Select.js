@@ -952,7 +952,7 @@ export default class SelectComponent extends BaseComponent {
         const newUrl = this.getUrl(data, this.dataValue);
         if (newUrl !== this.currentUrl) {
           this.newUrl = newUrl;
-          console.log(`${this.component.key}.setValue('${value}'): set new URL: ${this.currentUrl} -> ${this.newUrl}`);
+          // console.log(`${this.component.key}.setValue('${value}'): set new URL: ${this.currentUrl} -> ${this.newUrl}`);
           this.triggerUpdate(this.dataValue, true, data);
         }
       }
