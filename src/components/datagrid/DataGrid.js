@@ -406,7 +406,7 @@ export default class DataGridComponent extends NestedComponent {
   }
 
   /* eslint-disable max-statements */
-  setValue(value, flags) {
+  setValue(value, flags, data) {
     flags = this.getFlags.apply(this, arguments);
     if (!value) {
       this.dataValue = this.defaultValue;
@@ -467,7 +467,7 @@ export default class DataGridComponent extends NestedComponent {
         if (value.length <= index) {
           return;
         }
-        _.forIn(row, component => this.setNestedValue(component, value[index], flags));
+        _.forIn(row, component => this.setNestedValue(component, value[index], flags, data));
       });
     }
 

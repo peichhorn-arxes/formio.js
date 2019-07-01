@@ -68,7 +68,7 @@ export default class ContainerComponent extends NestedComponent {
     return BaseComponent.prototype.updateValue.call(this, flags, value);
   }
 
-  setValue(value, flags) {
+  setValue(value, flags, data) {
     flags = this.getFlags.apply(this, arguments);
     if (!value || !_.isObject(value)) {
       return;
@@ -82,6 +82,6 @@ export default class ContainerComponent extends NestedComponent {
       this.dataValue = {};
       this.getComponents().forEach(component => (component.data = this.dataValue));
     }
-    return super.setValue(value, flags);
+    return super.setValue(value, flags, data);
   }
 }

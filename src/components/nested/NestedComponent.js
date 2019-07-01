@@ -563,30 +563,33 @@ export default class NestedComponent extends BaseComponent {
     return Promise.all(this.getComponents().map((component) => component.dataReady));
   }
 
-  setNestedValue(component, value, flags, changed) {
+  setNestedValue(component, value, flags, changed, data) {
+    if (!data) {
+      data = value;
+    }
     if (component.type === 'button') {
       return false;
     }
 
     if (component.type === 'components') {
-      return component.setValue(value, flags, value) || changed;
+      return component.setValue(value, flags, data) || changed;
     }
     else if (value && component.hasValue(value)) {
-      return component.setValue(_.get(value, component.key), flags, value) || changed;
+      return component.setValue(_.get(value, component.key), flags, data) || changed;
     }
     else {
       flags.noValidate = true;
-      return component.setValue(component.defaultValue, flags, value) || changed;
+      return component.setValue(component.defaultValue, flags, data) || changed;
     }
   }
 
-  setValue(value, flags) {
+  setValue(value, flags, data) {
     if (!value) {
       return false;
     }
     flags = this.getFlags.apply(this, arguments);
     return this.getComponents().reduce((changed, component) => {
-      return this.setNestedValue(component, value, flags, changed);
+      return this.setNestedValue(component, value, flags, changed, data);
     }, false);
   }
 
