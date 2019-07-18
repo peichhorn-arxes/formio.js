@@ -22,11 +22,11 @@ describe('Checkbox Component', () => {
 
   it('Span should have correct text label', (done) => {
     Harness.testCreate(CheckBoxComponent, comp1).then((component) => {
-      const componentClass = component.element.getAttribute('class');
-      assert(componentClass.indexOf('form-check') !== -1, 'No form-check class.');
       const labels = component.element.querySelectorAll('label');
       assert.equal(labels.length, 1);
-      assert(labels[0].getAttribute('class').indexOf('form-check-label') !== -1, 'No form-check-label class');
+      const labelClass = labels[0].getAttribute('class');
+      assert(labelClass.indexOf('form-check') !== -1, 'No form-check class');
+      assert(labelClass.indexOf('form-check-label') !== -1, 'No form-check-label class');
       const spans = labels[0].querySelectorAll('span');
       assert.equal(spans.length, 1);
       assert.equal(spans[0].innerHTML, 'Check me');
