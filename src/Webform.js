@@ -1213,6 +1213,7 @@ export default class Webform extends NestedComponent {
           return reject();
         }
 
+        // doesn't work for nested components
         this.getAllComponents().forEach((comp) => {
           const { persistent, key } = comp.component;
           if (persistent === 'client-only') {
