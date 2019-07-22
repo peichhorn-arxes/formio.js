@@ -4,7 +4,7 @@ import * as utils from './utils/utils';
 export default class EventEmitter extends EventEmitter2 {
   constructor(conf = {}) {
     const {
-      loadLimit = 50,
+      loadLimit = 500,
       eventsSafeInterval = 300,
       pause = 500,
       inspect = false,
