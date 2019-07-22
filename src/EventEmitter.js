@@ -15,7 +15,7 @@ export default class EventEmitter extends EventEmitter2 {
     const [isPaused, togglePause] = utils.withSwitch(false, true);
 
     const overloadHandler = () => {
-      console.warn('Infinite loop detected');
+      console.warn('Event overload detected');
       togglePause();
       setTimeout(togglePause, pause);
     };
