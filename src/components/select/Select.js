@@ -70,7 +70,7 @@ export default class SelectComponent extends BaseComponent {
     });
 
     this.currentUrl = undefined;
-    this.newUrl = undefined;
+    this.newUrl = this.getUrl();
   }
 
   get dataReady() {
