@@ -31,7 +31,8 @@ export default class SelectComponent extends BaseComponent {
       searchThreshold: 0.3,
       fuseOptions: {},
       customOptions: {},
-      infiniteScroll: false
+      infiniteScroll: false,
+      clearValueIfNotInItems: false,
     }, ...extend);
   }
 
@@ -312,7 +313,7 @@ export default class SelectComponent extends BaseComponent {
     this.currentItems = items;
 
     // Add the value options.
-    if (!fromSearch) {
+    if (!fromSearch && !this.component.clearValueIfNotInItems) {
       this.addValueOptions(items);
     }
 
@@ -337,12 +338,18 @@ export default class SelectComponent extends BaseComponent {
     this.scrollLoading = false;
     this.loading = false;
 
-    // If a value is provided, then select it.
-    if (this.dataValue) {
+    if (this.component.clearValueIfNotInItems && !items.find(item => {
+      return _.isEqual(this.dataValue, this.itemValue(item));
+    })) {
+      // current value is not in the list -> clear it
+      this.deleteValue();
+    }
+    else if (this.dataValue) {
+      // current value is in the list -> select it
       this.setValue(this.dataValue, { noUpdateEvent: true });
     }
     else {
-      // If a default value is provided then select it.
+      // no current value set -> maybe there is a default value
       const defaultValue = this.defaultValue;
       if (defaultValue) {
         this.setValue(defaultValue, { noUpdateEvent: true });
