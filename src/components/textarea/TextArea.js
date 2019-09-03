@@ -201,7 +201,9 @@ export default class TextAreaComponent extends TextFieldComponent {
           _this.imageHandler.call(_this, this);
         } );
       }
-      quill.root.spellcheck = this.component.spellcheck;
+      if (this.component.hasOwnProperty('spellcheck')) {
+        quill.root.spellcheck = this.component.spellcheck;
+      }
       if (this.options.readOnly || this.component.disabled) {
         quill.disable();
       }
