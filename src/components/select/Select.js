@@ -945,11 +945,7 @@ export default class SelectComponent extends BaseComponent {
       // Now set the value.
       if (hasValue) {
         this.choices.removeActiveItems();
-        // Add the currently selected choices if they don't already exist.
-        const currentChoices = Array.isArray(this.dataValue) ? this.dataValue : [this.dataValue];
-        if (!this.addCurrentChoices(currentChoices, this.selectOptions, true)) {
-          this.choices.setChoices(this.selectOptions, 'value', 'label', true);
-        }
+        this.choices.setChoices(this.selectOptions, 'value', 'label', true);
         this.choices.setChoiceByValue(value);
       }
       else if (hasPreviousValue) {
