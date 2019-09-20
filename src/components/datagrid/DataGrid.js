@@ -193,7 +193,11 @@ export default class DataGridComponent extends NestedComponent {
           class: 'formio-drag-column-header'
         }) : null,
         this.visibleComponents.map(comp => {
-          const th = this.ce('th');
+          const attr = {};
+          if (comp.width) {
+            attr['style'] = `width: ${comp.width}`;
+          }
+          const th = this.ce('th', attr);
           if (comp.validate && comp.validate.required) {
             th.setAttribute('class', 'field-required');
           }
