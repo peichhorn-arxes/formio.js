@@ -53,6 +53,7 @@ export default class TextFieldComponent extends BaseComponent {
     else {
       info.attr.type = 'text';
     }
+    info.attr.autocomplete = 'off';
     info.changeEvent = 'input';
     return info;
   }
