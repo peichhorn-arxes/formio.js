@@ -108,6 +108,7 @@ export default class NumberComponent extends BaseComponent {
     const info = super.elementInfo();
     info.attr.type = 'text';
     info.attr.inputmode = 'numeric';
+    info.attr.autocomplete = 'off';
     info.changeEvent = 'input';
     return info;
   }
