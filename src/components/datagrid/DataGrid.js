@@ -48,7 +48,7 @@ export default class DataGridComponent extends NestedComponent {
   }
 
   get emptyValue() {
-    return [{}];
+    return (this.hasAddButton()) ? [{}] : [];
   }
 
   get addAnotherPosition() {
@@ -62,6 +62,7 @@ export default class DataGridComponent extends NestedComponent {
   hasAddButton() {
     const maxLength = _.get(this.component, 'validate.maxLength');
     return !this.component.disableAddingRemovingRows &&
+    !this.component.disableAddingRows  &&
     !this.shouldDisable &&
       !this.options.builder &&
       !this.options.preview &&
@@ -238,6 +239,12 @@ export default class DataGridComponent extends NestedComponent {
       return [value];
     }
     return this.emptyValue;
+  }
+
+  restoreValue() {
+    if (this.hasAddButton()) {
+      super.restoreValue();
+    }
   }
 
   buildRow(rowData, index, state) {

@@ -11,6 +11,16 @@ export default [
     calculateValue: 'value = data.enableRowGroups ? true : data.disableAddingRemovingRows;',
   },
   {
+    type: 'checkbox',
+    label: 'Disable Adding Rows',
+    key: 'disableAddingRows',
+    tooltip: 'Check if you want to hide Add Another button',
+    weight: 406,
+    input: true,
+    clearOnHide: false,
+    customConditional: 'show = !data.disableAddingRemovingRows'
+  },
+  {
     type: 'textfield',
     label: 'Add Another Text',
     key: 'addAnother',
