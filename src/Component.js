@@ -316,7 +316,8 @@ export default class Component {
       try {
         input.mask = maskInput({
           inputElement: input,
-          mask
+          mask,
+          guide: false
         });
       }
       catch (e) {
