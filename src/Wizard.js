@@ -263,7 +263,26 @@ export default class Wizard extends Webform {
   }
 
   build() {
-    super.build();
+    // Clear any existing event handlers in case this is a rebuild
+    this.eventHandlers.forEach(h => this.removeEventListener(h.obj, h.type));
+
+    const element = this.getContainer();
+    const componentsContainer = this.ce('div', {
+      class: 'wizard-body'
+    });
+    element.appendChild(componentsContainer);
+
+    this.on('submitButton', (options) => this.submit(false, options), true);
+    this.on('checkValidity', (data) => this.checkValidity(null, true, data), true);
+    this.addComponents(componentsContainer, null, null);
+    this.currentForm = this;
+    this.on('requestUrl', (args) => (this.submitUrl(args.url,args.headers)), true);
+    setTimeout(() => {
+      this.onChange({
+        noEmit: true
+      });
+    }, 1);
+
     this.formReady.then(() => {
       this.buildWizardHeader();
       this.buildWizardNav();
@@ -328,6 +347,7 @@ export default class Wizard extends Webform {
     });
 
     this.wizardHeader = this.ce('nav', {
+      class: 'wizard-header',
       'aria-label': 'navigation'
     });
 
@@ -454,7 +474,7 @@ export default class Wizard extends Webform {
       return;
     }
     this.wizardNav = this.ce('ul', {
-      class: 'list-inline pull-right'
+      class: 'list-inline pull-right wizard-footer'
     });
     this.element.appendChild(this.wizardNav);
     [
