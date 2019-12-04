@@ -262,11 +262,15 @@ export default class Wizard extends Webform {
     return this.setPage(this.page);
   }
 
+  get className() {
+    return 'formio-component formio-component-wizard';
+  }
+
   build() {
     // Clear any existing event handlers in case this is a rebuild
     this.eventHandlers.forEach(h => this.removeEventListener(h.obj, h.type));
 
-    const element = this.getContainer();
+    const element = this.createElement();
     const componentsContainer = this.ce('div', {
       class: 'wizard-body'
     });
