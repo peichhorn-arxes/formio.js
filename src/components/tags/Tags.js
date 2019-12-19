@@ -58,7 +58,7 @@ export default class TagsComponent extends BaseComponent {
   }
 
   setValue(value) {
-    if (this.choices) {
+    if (this.choices && value && value !== '') {
       if (this.component.storeas === 'string' && (typeof value === 'string')) {
         value = value.split(',');
       }
