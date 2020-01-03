@@ -51,9 +51,9 @@ export default class TagsComponent extends BaseComponent {
     this.choices = new Choices(input, {
       classNames: {
         containerOuter: 'choices form-group formio-choices',
-        containerInner: 'form-control',
-        addItemText: value => this.t('Press Enter to add <b>{{value}}</b>', { value }),
+        containerInner: 'form-control'
       },
+      addItemText: value => this.t('Press Enter to add <b>{{value}}</b>', { value }),
       delimiter: (this.component.delimeter || ','),
       editItems: true,
       maxItemCount: this.component.maxTags,
