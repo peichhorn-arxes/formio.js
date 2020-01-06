@@ -95,7 +95,7 @@ export default class TextAreaComponent extends TextFieldComponent {
    * @param newValue
    */
   updateEditorValue(newValue) {
-    newValue = this.getConvertedValue(this.removeBlanks(newValue));
+    newValue = this.getConvertedValue(newValue);
     if ((newValue !== this.dataValue) && (!_.isEmpty(newValue) || !_.isEmpty(this.dataValue))) {
       this.updateValue({
         modified: !this.autoModified
@@ -331,7 +331,7 @@ export default class TextAreaComponent extends TextFieldComponent {
   }
 
   hasChanged(before, after) {
-    return super.hasChanged(this.removeBlanks(before), this.removeBlanks(after));
+    return super.hasChanged(before, after);
   }
 
   isEmpty(value) {
