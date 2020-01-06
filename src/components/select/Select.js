@@ -667,6 +667,7 @@ export default class SelectComponent extends BaseComponent {
       shouldSort: false,
       position: (this.component.dropdown || 'auto'),
       searchEnabled: useSearch,
+      searchResultLimit: (this.component.searchResultLimit || this.component.limit),
       searchChoices: !searchField,
       searchFields: this.component.searchFields
         || (searchField ? [`value.${searchField}`] : ['label', 'customProperties.searchCriteria']),
