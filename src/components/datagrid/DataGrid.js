@@ -48,7 +48,7 @@ export default class DataGridComponent extends NestedComponent {
   }
 
   get emptyValue() {
-    return (this.hasAddButton()) ? [{}] : [];
+    return (this.options.builder || this.options.preview || this.hasAddButton()) ? [{}] : [];
   }
 
   get addAnotherPosition() {
