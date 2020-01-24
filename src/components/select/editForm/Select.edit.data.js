@@ -347,6 +347,15 @@ export default [
     tooltip: 'The template for adding custom search criteria.'
   },
   {
+    type: 'textarea',
+    input: true,
+    key: 'clientSideFilter',
+    label: 'Client-side filter',
+    editor: 'ace',
+    rows: 3,
+    weight: 19
+  },
+  {
     type: 'checkbox',
     input: true,
     weight: 20,

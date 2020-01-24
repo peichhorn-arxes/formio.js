@@ -34,6 +34,7 @@ export default class SelectComponent extends BaseComponent {
       customOptions: {},
       infiniteScroll: false,
       clearValueIfNotInItems: false,
+      clientSideFilter: ''
     }, ...extend);
   }
 
@@ -280,6 +281,15 @@ export default class SelectComponent extends BaseComponent {
         console.warn(err.message);
         items = [];
       }
+    }
+
+    if (this.component.clientSideFilter) {
+      items = items.filter(item => {
+        return this.evaluate(this.component.clientSideFilter, {
+          data: this.data,
+          item
+        }, 'keep');
+      });
     }
 
     // Allow js processing (needed for form builder)
