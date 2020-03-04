@@ -60,7 +60,7 @@ export default class Formio {
     if (options.hasOwnProperty('base')) {
       this.base = options.base;
     }
-    else if (Formio.baseUrl) {
+    else if (!isNil(Formio.baseUrl)) {
       this.base = Formio.baseUrl;
     }
     else {
