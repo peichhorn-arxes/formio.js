@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import BaseComponent from '../base/Base';
+import Formio from '../../Formio';
 
 export default class RadioComponent extends BaseComponent {
   static schema(...extend) {
@@ -41,6 +42,36 @@ export default class RadioComponent extends BaseComponent {
   }
 
   createInput(container) {
+    if (this.component.dataSrc === 'url' && !this.inputs.length) {
+      let url = this.component.data.url;
+      url = this.interpolateIfValid(url, {
+        formioBase: Formio.getBaseUrl()
+      });
+
+      this.inputsReady = Formio.makeStaticRequest(url, 'GET', null, { ignoreCache: true })
+        .then(options => {
+          this.component.values = options.map(option => {
+            const value = this.component.valueProperty ? _.get(option, this.component.valueProperty) : option;
+            const label = this.component.labelProperty ? _.get(option, this.component.labelProperty) : option;
+            return { value, label };
+          });
+          this.createInputs(container);
+          _.each(this.inputs, (input) => this.setDisabled(this.performInputMapping(input), this.disabled));
+
+          setTimeout(() => this.triggerChange({}), 0);
+        })
+        .catch(err => {
+          this.loading = false;
+          this.events.emit('formio.error', err);
+          console.warn(`Unable to load resources for ${this.component.key}`);
+        });
+    }
+    else {
+      this.createInputs(container);
+    }
+  }
+
+  createInputs(container) {
     const inputGroup = this.ce('div', {
       class: 'form-group'
     });
@@ -191,6 +222,15 @@ export default class RadioComponent extends BaseComponent {
     if (this.inputs && this.inputs[index] && value !== null && value !== undefined) {
       const inputValue = this.inputs[index].value;
       this.inputs[index].checked = (inputValue === value.toString());
+    }
+  }
+
+  setValue(value, flags) {
+    if (this.inputsReady) {
+      this.inputsReady = this.inputsReady.then(() => super.setValue(value, flags));
+    }
+    else {
+      super.setValue(value, flags);
     }
   }
 
