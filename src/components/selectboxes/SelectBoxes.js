@@ -77,13 +77,16 @@ export default class SelectBoxesComponent extends RadioComponent {
     return value;
   }
 
-  /**
-   * Set the value of this component.
-   *
-   * @param value
-   * @param flags
-   */
   setValue(value, flags) {
+    if (this.inputsReady) {
+      this.inputsReady.then(() => this._setValue(value, flags));
+    }
+    else {
+      this._setValue(value, flags);
+    }
+  }
+
+  _setValue(value, flags) {
     value = value || {};
     if (typeof value !== 'object') {
       if (typeof value === 'string') {
@@ -113,6 +116,10 @@ export default class SelectBoxesComponent extends RadioComponent {
   }
 
   checkValidity(data, dirty, rowData) {
+    if (this.inputsReady && !this.inputs.length) {
+      return true;
+    }
+
     const maxCount = this.component.validate.maxSelectedCount;
 
     if (maxCount) {

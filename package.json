@@ -79,6 +79,7 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.25",
     "native-promise-only": "^0.8.1",
+    "node-sass": "^4.13.1",
     "shallow-copy": "0.0.1",
     "signature_pad": "^2.3.2",
     "string-hash": "^1.1.3",
