@@ -502,6 +502,7 @@ export default class Component {
    * @return {*}
    */
   evalContext(additional) {
+    const staticContext = this.options.staticContext;
     return Object.assign({
       _,
       utils: FormioUtils,
@@ -509,7 +510,7 @@ export default class Component {
       user: Formio.getUser(),
       moment,
       instance: this
-    }, additional);
+    }, additional, staticContext);
   }
 
   /**
