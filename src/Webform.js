@@ -20,7 +20,8 @@ function getOptions(options) {
     icons: Formio.icons || '',
     i18next,
     saveDraft: false,
-    saveDraftThrottle: 5000
+    saveDraftThrottle: 5000,
+    staticContext: {}
   });
   if (!options.events) {
     options.events = new EventEmitter({
@@ -306,6 +307,10 @@ export default class Webform extends NestedComponent {
     if (active) {
       this.language = code;
     }
+  }
+
+  set staticContext(context) {
+    this.options.staticContext = context;
   }
 
   /**
