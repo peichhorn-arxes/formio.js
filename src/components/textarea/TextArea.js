@@ -106,34 +106,31 @@ export default class TextAreaComponent extends TextFieldComponent {
 
   /* eslint-disable max-statements */
   createInput(container) {
-    if (this.options.readOnly) {
+    if (this.options.readOnly || this.htmlView) {
       this.input = this.ce('div', {
         class: 'well'
       });
+      this.setInputStyles(this.input);
       container.appendChild(this.input);
       return this.input;
     }
     else if (this.isPlain) {
       return super.createInput(container);
     }
-    else {
-      this.errorContainer = container;
-    }
 
-    if (this.htmlView) {
-      this.input = this.ce('div', {
-        class: 'well'
-      });
-      container.appendChild(this.input);
-      return this.input;
-    }
+    this.errorContainer = container;
 
     // Add the input.
-    this.input = this.ce('div', {
+
+    const inputContainer = this.ce('div', {
       class: 'formio-wysiwyg-editor'
     });
-    container.appendChild(this.input);
-    this.addCounter(container);
+    this.setInputStyles(inputContainer);
+    container.appendChild(inputContainer);
+
+    this.input = this.ce('div', );
+    inputContainer.appendChild(this.input);
+    this.addCounter(inputContainer);
 
     return this.input;
   }
